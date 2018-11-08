@@ -1,0 +1,40 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+// In this section you declare where to find the dependencies of your project
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+	compile group: 'com.nimbusds', name: 'nimbus-jose-jwt', version: '6.2'
+	compile group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.60'
+	testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.3.1'
+	testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.3.1'
+	
+	
+}
+
+version = '0.0.1-SNAPSHOT';
+sourceCompatibility = 1.6
+
+/*
+jar {
+    baseName = 'JWS-HSM'
+    version = '0.0.1-SNAPSHOT'
+}
+*/
+
+task copyDependencies(type: Copy) {
+   from configurations.compile
+   into 'downloaded-dependencies'
+}
+/* - */
+
+uploadArchives {
+    repositories {
+       flatDir {
+           dirs 'repos'
+       }
+    }
+}
